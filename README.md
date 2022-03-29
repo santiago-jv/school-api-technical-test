@@ -5,7 +5,7 @@
 - [Modelo relacional](https://drive.google.com/file/d/18nPafDIl27PCXknX4Lau80ptZiXb9xuS/view?usp=sharing)
 
 ## Herramientas utilizadas
-- Postman -> [Estructura del proyecto](https://drive.google.com/file/d/17m7o_YzlqGrIURm7xNHNAwm17eg05JWa/view?usp=sharing)
+- Postman para testear la API -> [Estructura del proyecto](https://drive.google.com/file/d/17m7o_YzlqGrIURm7xNHNAwm17eg05JWa/view?usp=sharing)
 - [Knex.js](https://knexjs.org)
 - [Express.js](https://expressjs.com/es)
 - [Xampp para MySQL](https://www.apachefriends.org/es/index.html)
