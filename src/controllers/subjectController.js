@@ -1,4 +1,5 @@
 const CourseRepository = require("../repositories/courseRepository")
+const EnrollmentRepository = require("../repositories/enrollmentRepository")
 const SubjectRepository = require("../repositories/subjectRepository")
 const TeacherRepository = require("../repositories/teacherRepository")
 
@@ -6,10 +7,38 @@ const SubjectController = {}
 
 SubjectController.getSubjects = async (request, response) => {
     try {
-        const result = await SubjectRepository.getSubjects()
+        const mappedSubjects = []
+        const subjects = await SubjectRepository.getSubjects()
 
+        for (let subject of subjects) {
+            
+            const students = await EnrollmentRepository.getStudentsBySubjectId(subject.subjectId)
+            
+            const mappedSubject = {
+                id: subject.subjectId,
+                createdAt: subject.subjectCreatedAt,
+                name: subject.subjectName,
+                teacher:{
+                    id: subject.teacherId,
+                    name: subject.teacherName,
+                    createdAt: subject.teacherCreatedAt,
+                    schoolId: subject.teacherSchoolId
+                },
+                course:{
+                    id: subject.courseId,
+                    classroom: subject.classroom, 
+                    grade: subject.grade,
+                    createdAt: subject.courseCreatedAt
+                },
+                students
+            }
+            
+            mappedSubjects.push(mappedSubject)
+            
+           
+        }
 
-        return response.status(200).json(result)
+        return response.status(200).json(mappedSubjects)
     } catch (error) {
         console.error(error)
         return response.status(500).json({

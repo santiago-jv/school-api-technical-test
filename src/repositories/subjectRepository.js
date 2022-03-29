@@ -18,19 +18,41 @@ SubjectRepository.verifyIfExists = (subjectId) => {
 
 SubjectRepository.getSubjects = async () => {
     return knex('subjects')
-  /*   .select([
+    .select([
         'subjects.id as subjectId','subjects.name as subjectName','subjects.created_at as subjectCreatedAt',
         'courses.id as courseId','courses.classroom','courses.grade','courses.created_at as courseCreatedAt',
-        'students.name as studentName','students.id as studentId'
+        'teachers.name as teacherName','teachers.id as teacherId','teachers.created_at as teacherCreatedAt','teachers.school_id  as teacherSchoolId'
+        
     ])
-
     .join('courses','courses.id' ,'=', 'subjects.course_id')
-    .join('enrollments', 'enrollments.subject_id','=','subjects.id')
-    .join('students','students.id','=','enrollments.student_id') */
+    .join('teachers', 'teachers.id','=', 'subjects.teacher_id')
 
 }
 
+const subjects = [
 
+    {
+        id:2,
+        course:{
+            id:1,
+            classroom:"sdfwedf",
+            grade:6
+        },
+        teacher:{
+            id:1,
+            name:"Name"
+        },
+        students: [
+            {
+
+            },
+            {
+
+            }
+        ]
+    }
+
+]
 SubjectRepository.getBooksByUserId = (userId) => {
     return knex('books').where({user_id:userId})
 }
