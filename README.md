@@ -1,7 +1,7 @@
 # School API
 
 ## Enlaces
-- [Diagrama entidad-relación](https://drive.google.com/file/d/12wHS9PH1dOP3iihakO4tOLQ537HvQiAd/view?usp=sharing)
+- [Diagrama entidad-relación](https://drive.google.com/file/d/122VWwnHhJ1X_sF0oA_bxBeN865289Hhu/view?usp=sharing)
 - [Modelo relacional](https://drive.google.com/file/d/18nPafDIl27PCXknX4Lau80ptZiXb9xuS/view?usp=sharing)
 
 ## Herramientas utilizadas
