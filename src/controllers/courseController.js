@@ -11,10 +11,10 @@ CourseController.createCourse = async (request,response) => {
 
         if(!schoolExist) return response.status(400).json({ error: "School not found"})
 
-        const  [courseId] = await CourseRepository.createCourse({schoolId,classroom, grade})
+        const  course = await CourseRepository.createCourse({schoolId,classroom, grade})
         return response.status(201).json({
             message:'Course created successfully',
-            courseId
+            course
         })
     } catch (error) {
         console.error(error)

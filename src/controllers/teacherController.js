@@ -11,10 +11,10 @@ TeacherController.createTeacher = async (request,response) => {
     
         if(!schoolExist) return response.status(400).json({ error: "School not found"})
 
-        const  [teacherId] = await TeacherRepository.createTeacher({name, schoolId})
+        const  teacher = await TeacherRepository.createTeacher({name, schoolId})
         return response.status(201).json({
             message:'Teacher created successfully',
-            teacherId
+            teacher
         })
     } catch (error) {
         console.error(error)

@@ -1,3 +1,5 @@
+const Teacher = require('../models/Teacher')
+
 const knex = require('../database/connection').getClient()
 const TeacherRepository = {}
 
@@ -5,7 +7,10 @@ TeacherRepository.createTeacher = ({
     schoolId,
     name
 }) => {
-    return knex('teachers').insert({name,school_id:schoolId})
+   return Teacher.query().insertAndFetch({
+       name,
+       school_id:schoolId
+   })
 }
 
 TeacherRepository.verifyIfExists = (teacherId) => {
