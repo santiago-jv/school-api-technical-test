@@ -16,7 +16,11 @@ SubjectRepository.verifyIfExists = (subjectId) => {
 }
 
 SubjectRepository.getSubjects = async () => {
-   return Subject.query().withGraphFetched('teacher').withGraphFetched('students').withGraphFetched('course')
+   return Subject.query()
+   .select('subjects.name', 'subjects.id', 'subjects.created_at')
+   .withGraphFetched('teacher')
+   .withGraphFetched('students')
+   .withGraphFetched('course')
 }
 SubjectRepository.updateSubject = ({
     name,
