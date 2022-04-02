@@ -5,10 +5,10 @@ const SchoolController = {}
 SchoolController.createSchool = async (request,response) => {
     const {name} = request.body
     try {
-        const [schoolId] = await SchoolRepository.createSchool(name)
+        const school= await SchoolRepository.createSchool(name)
         return response.status(201).json({
             message:'School created successfully',
-            schoolId
+            school
         })
     } catch (error) {
         console.error(error)
