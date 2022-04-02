@@ -7,7 +7,6 @@ const {PORT} = process.env
 async function startServer() {
     try {
         Model.knex(database.getClient())
-        await database.connect()
         server.listen(PORT, ()=>{
             console.log(`Server listening on http://localhost:${PORT}`)
         })
