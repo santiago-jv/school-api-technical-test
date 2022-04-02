@@ -1,12 +1,12 @@
 const { Model } = require("objection");
-const Subject = require("./Subject");
 
 class Course extends Model {
-
+    
     static get tableName () {
         return 'courses';
     }
     static get relationMappings() {
+        const Subject = require("./Subject");
         return  {
            subjects:{
                relation:Model.HasManyRelation,

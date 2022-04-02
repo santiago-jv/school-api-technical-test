@@ -1,5 +1,4 @@
 const CourseRepository = require("../repositories/courseRepository")
-const EnrollmentRepository = require("../repositories/enrollmentRepository")
 const SubjectRepository = require("../repositories/subjectRepository")
 const TeacherRepository = require("../repositories/teacherRepository")
 
@@ -7,38 +6,9 @@ const SubjectController = {}
 
 SubjectController.getSubjects = async (request, response) => {
     try {
-        const mappedSubjects = []
         const subjects = await SubjectRepository.getSubjects()
 
-        for (let subject of subjects) {
-            
-            const students = await EnrollmentRepository.getStudentsBySubjectId(subject.subjectId)
-            
-            const mappedSubject = {
-                id: subject.subjectId,
-                createdAt: subject.subjectCreatedAt,
-                name: subject.subjectName,
-                teacher:{
-                    id: subject.teacherId,
-                    name: subject.teacherName,
-                    createdAt: subject.teacherCreatedAt,
-                    schoolId: subject.teacherSchoolId
-                },
-                course:{
-                    id: subject.courseId,
-                    classroom: subject.classroom, 
-                    grade: subject.grade,
-                    createdAt: subject.courseCreatedAt
-                },
-                students
-            }
-            
-            mappedSubjects.push(mappedSubject)
-            
-           
-        }
-
-        return response.status(200).json(mappedSubjects)
+        return response.status(200).json(subjects)
     } catch (error) {
         console.error(error)
         return response.status(500).json({
@@ -51,13 +21,13 @@ SubjectController.getSubjects = async (request, response) => {
 SubjectController.createSubject = async (request,response) => {
     const {name, courseId} = request.body
     try {
-        const [courseExist] = await CourseRepository.verifyIfExists(courseId)
+        const course = await CourseRepository.verifyIfExists(courseId)
     
-        if(!courseExist) return response.status(400).json({ error: "Course not found"})
-        const [subjectId] = await SubjectRepository.createSubject({name, courseId})
+        if(!course) return response.status(400).json({ error: "Course not found"})
+        const subject = await SubjectRepository.createSubject({name, courseId})
         return response.status(201).json({
             message:'Subject created successfully',
-            subjectId
+            subject
         })
     } catch (error) {
         console.error(error)
@@ -70,11 +40,11 @@ SubjectController.createSubject = async (request,response) => {
 SubjectController.assignTeacher = async (request, response) => {
     const {subjectId, teacherId} = request.params
     try {
-        const [subjectExist] = await SubjectRepository.verifyIfExists(subjectId)
-        const [teacherExist] = await TeacherRepository.verifyIfExists(teacherId)
+        const subject = await SubjectRepository.verifyIfExists(subjectId)
+        const teacher = await TeacherRepository.verifyIfExists(teacherId)
 
-        if(!subjectExist) return response.status(400).json({ error: "Subject not found"})
-        else if (!teacherExist) return response.status(400).json({ error: "Teacher not found"})
+        if(!subject) return response.status(400).json({ error: "Subject not found"})
+        else if (!teacher) return response.status(400).json({ error: "Teacher not found"})
 
         await SubjectRepository.assignTeacher(subjectId, teacherId)
         return response.status(200).json({
@@ -94,11 +64,14 @@ SubjectController.updateSubject = async (request, response) => {
     const {subjectId} = request.params
     const {name, courseId, teacherId} = request.body
     try {
-        const [courseExist] = await CourseRepository.verifyIfExists(courseId)
-        const [teacherExist] = await TeacherRepository.verifyIfExists(teacherId)
+        const subject = await SubjectRepository.verifyIfExists(subjectId)
+        if(!subject) return response.status(400).json({ error: "Subject not found"})
 
-        if(!courseExist) return response.status(400).json({ error: "Course not found"})
-        else if (!teacherExist) return response.status(400).json({ error: "Teacher not found"})
+        const course = await CourseRepository.verifyIfExists(courseId)
+        const teacher = await TeacherRepository.verifyIfExists(teacherId)
+        
+        if(!course) return response.status(400).json({ error: "Course not found"})
+        else if (!teacher) return response.status(400).json({ error: "Teacher not found"})
         await SubjectRepository.updateSubject({name,subjectId, courseId, teacherId})
 
         return response.status(200).json({ 

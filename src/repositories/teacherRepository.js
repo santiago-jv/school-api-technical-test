@@ -1,6 +1,4 @@
 const Teacher = require('../models/Teacher')
-
-const knex = require('../database/connection').getClient()
 const TeacherRepository = {}
 
 TeacherRepository.createTeacher = ({
@@ -14,6 +12,6 @@ TeacherRepository.createTeacher = ({
 }
 
 TeacherRepository.verifyIfExists = (teacherId) => {
-    return knex('teachers').select('teachers.id').where({id: teacherId})
+    return Teacher.query().findById(teacherId)
 }
 module.exports = TeacherRepository

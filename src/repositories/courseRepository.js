@@ -1,6 +1,4 @@
 const Course = require('../models/Course')
-
-const knex = require('../database/connection').getClient()
 const CourseRepository = {}
 
 CourseRepository.createCourse = ({
@@ -17,7 +15,7 @@ CourseRepository.createCourse = ({
 
 }
 CourseRepository.verifyIfExists = (courseId) => {
-    return knex('courses').select('courses.id').where({id: courseId})
+   return Course.query().findById(courseId)
 }
 
 

@@ -6,10 +6,10 @@ const StudentController = {}
 StudentController.createStudent = async (request,response) => {
     const {schoolId, name} = request.body
     try {
-        
-        const [schoolExist] = await SchoolRepository.verifyIfExists(schoolId)
+
+        const school= await SchoolRepository.verifyIfExists(schoolId)
     
-        if(!schoolExist) return response.status(400).json({ error: "School not found"})
+        if(!school) return response.status(400).json({ error: "School not found"})
 
         const  student = await StudentRepository.createStudent({name, schoolId})
         return response.status(201).json({
