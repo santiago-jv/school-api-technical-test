@@ -29,34 +29,6 @@ SubjectRepository.getSubjects = async () => {
 
 }
 
-const subjects = [
-
-    {
-        id:2,
-        course:{
-            id:1,
-            classroom:"sdfwedf",
-            grade:6
-        },
-        teacher:{
-            id:1,
-            name:"Name"
-        },
-        students: [
-            {
-
-            },
-            {
-
-            }
-        ]
-    }
-
-]
-SubjectRepository.getBooksByUserId = (userId) => {
-    return knex('books').where({user_id:userId})
-}
-
 SubjectRepository.updateSubject = ({
     name,
     subjectId,
