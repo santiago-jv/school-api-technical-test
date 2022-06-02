@@ -10,7 +10,3 @@
 - [Express.js](https://expressjs.com/es)
 - [Xampp para MySQL](https://www.apachefriends.org/es/index.html)
 
-## Notas
-
-- Subject: Es la palabra más parecida a asignatura en el Inglés.
-- Enrollment: Es la tabla de las matrículas realizadas. (Tabla auxiliar para la relación muchos a muchos entre las asignaturas y los estudiantes).
